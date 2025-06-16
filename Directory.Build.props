@@ -1,0 +1,16 @@
+<Project>
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Product>ActivityLog</Product>
+        <Authors>Ivan Zhmur</Authors>
+        <RepositoryUrl>https://github.com/benotar/ActivityLog.git</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <NoWarn>NU1608</NoWarn>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+</Project>
