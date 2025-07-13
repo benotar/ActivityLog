@@ -30,6 +30,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BuildingBlocks ", "BuildingBlocks ", "{CCEE8651-4044-4917-B8E0-DBC173767530}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLog.SharedKernel", "src\BuidingBlocks\ActivityLog.SharedKernel\ActivityLog.SharedKernel.csproj", "{A15C7F15-D2DB-42EC-A408-55F5C768A62E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLog.Chassis", "src\BuidingBlocks\ActivityLog.Chassis\ActivityLog.Chassis.csproj", "{771FA487-A5DA-4B35-9576-0AF7702225E3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +52,8 @@ Global
 		{D97CDA85-879D-4EBE-B989-1025F84346E0} = {91A29965-BF79-45E6-A7B6-A00DA595871A}
 		{7BAC9729-C358-422B-BB6E-374718FAD4BA} = {87243AB0-9A69-4FB3-93EA-043C00D53439}
 		{4024FFC7-63AE-4855-8CBE-AD14FE2D6DFC} = {87243AB0-9A69-4FB3-93EA-043C00D53439}
+		{A15C7F15-D2DB-42EC-A408-55F5C768A62E} = {CCEE8651-4044-4917-B8E0-DBC173767530}
+		{771FA487-A5DA-4B35-9576-0AF7702225E3} = {CCEE8651-4044-4917-B8E0-DBC173767530}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D650BF86-3C18-4DB9-8B18-875E7E3A48FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +80,13 @@ Global
 		{4024FFC7-63AE-4855-8CBE-AD14FE2D6DFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4024FFC7-63AE-4855-8CBE-AD14FE2D6DFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4024FFC7-63AE-4855-8CBE-AD14FE2D6DFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A15C7F15-D2DB-42EC-A408-55F5C768A62E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A15C7F15-D2DB-42EC-A408-55F5C768A62E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A15C7F15-D2DB-42EC-A408-55F5C768A62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A15C7F15-D2DB-42EC-A408-55F5C768A62E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771FA487-A5DA-4B35-9576-0AF7702225E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771FA487-A5DA-4B35-9576-0AF7702225E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771FA487-A5DA-4B35-9576-0AF7702225E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771FA487-A5DA-4B35-9576-0AF7702225E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
