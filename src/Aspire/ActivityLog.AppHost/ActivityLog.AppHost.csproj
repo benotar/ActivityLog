@@ -12,6 +12,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\BuidingBlocks\ActivityLog.Chassis\ActivityLog.Chassis.csproj" />
+        <ProjectReference Include="..\..\BuidingBlocks\ActivityLog.SharedKernel\ActivityLog.SharedKernel.csproj" />
         <ProjectReference Include="..\..\Services\WorkoutService\ActivityLog.Services.WorkoutService.API\ActivityLog.Services.WorkoutService.API.csproj"/>
     </ItemGroup>
 

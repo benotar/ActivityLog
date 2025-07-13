@@ -1,25 +1,21 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-        <AspireVersion>9.3.1</AspireVersion>
-    </PropertyGroup>
-    <ItemGroup>
-        <!-- Aspire Hosting -->
-        <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)"/>
-    </ItemGroup>
-    
-    <ItemGroup>
-        <!-- Microsoft Extensions -->
-        <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.4.0" />
-        <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
-
-        <!-- OpenTelemetry -->
-        <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
-        <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
-        <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
-    </ItemGroup>
-    
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <AspireVersion>9.3.1</AspireVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Aspire.Hosting.AppHost" Version="$(AspireVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageVersion Include="ErrorOr" Version="2.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="9.4.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.12.0" />
+  </ItemGroup>
 </Project>
