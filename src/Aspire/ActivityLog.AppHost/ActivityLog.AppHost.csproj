@@ -1,18 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <Sdk Name="Aspire.AppHost.Sdk" Version="$(AspireVersion)"/>
+  <Sdk Name="Aspire.AppHost.Sdk" Version="$(AspireVersion)" />
 
-    <PropertyGroup>
-        <OutputType>Exe</OutputType>
-        <UserSecretsId>08c1cc4f-fcdd-499c-8bfc-9f82b5776221</UserSecretsId>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <UserSecretsId>08c1cc4f-fcdd-499c-8bfc-9f82b5776221</UserSecretsId>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="Aspire.Hosting.AppHost"/>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" />
+    <PackageReference Include="Aspire.Hosting.Docker" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\..\Services\WorkoutService\ActivityLog.Services.WorkoutService.API\ActivityLog.Services.WorkoutService.API.csproj"/>
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BuidingBlocks\ActivityLog.Constants\ActivityLog.Constants.csproj"
+                      IsAspireProjectResource="false"
+    />
+    <ProjectReference Include="..\..\Services\WorkoutService\ActivityLog.Services.WorkoutService.API\ActivityLog.Services.WorkoutService.API.csproj" />
+  </ItemGroup>
 
 </Project>
