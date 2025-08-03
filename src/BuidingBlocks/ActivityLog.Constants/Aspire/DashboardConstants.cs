@@ -2,10 +2,14 @@
 
 public static class DashboardConstants
 {
-    public const string ContainerName = "dashboard";
+    public const string Marker = "dashboard";
     public const string UiName = "dashboard-ui";
-    public const string ImageName = "mcr.microsoft.com/dotnet/nightly/aspire-dashboard:latest";
-    public const int UiPort = 18888;
+    public const string ContainerImageName = "mcr.microsoft.com/dotnet/nightly/aspire-dashboard";
+    public const int ContainerPort = 18888;
     public const int OtlpPort = 18889;
-    public static readonly string Otlp = nameof(Otlp).ToLowerInvariant();
+    public const string OtlpProtocol = "otlp";
+    public const string GrpcProtocol = "grpc";
+    public const string OtelExporterOtlpEndpoint = "OTEL_EXPORTER_OTLP_ENDPOINT";
+    public const string OtelExporterOtlpProtocol = "OTEL_EXPORTER_OTLP_PROTOCOL";
+    public const string OtelServiceName = "OTEL_SERVICE_NAME";
 }

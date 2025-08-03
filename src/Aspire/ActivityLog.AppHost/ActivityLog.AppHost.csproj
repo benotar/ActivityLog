@@ -10,13 +10,19 @@
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Docker" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\BuidingBlocks\ActivityLog.Constants\ActivityLog.Constants.csproj"
-                      IsAspireProjectResource="false"
-    />
+  <ItemGroup Label="Services">
     <ProjectReference Include="..\..\Services\WorkoutService\ActivityLog.Services.WorkoutService.API\ActivityLog.Services.WorkoutService.API.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup Label="Integrations">
+    <ProjectReference 
+      Include="..\..\BuidingBlocks\ActivityLog.Constants\ActivityLog.Constants.csproj"
+      IsAspireProjectResource="false"
+    />
+    
   </ItemGroup>
 
 </Project>
