@@ -39,14 +39,14 @@ public static class EndpointExtensions
     )
         where T : ProjectResource
     {
-        builder.WithUrls(c =>
-            c.Urls.Where(u =>
-                    u.Endpoint?.EndpointName == SharedConstants.Http)
+        builder.WithUrls(callbackContext =>
+            callbackContext.Urls.Where(urlAnnotation =>
+                    urlAnnotation.Endpoint?.EndpointName == SharedConstants.Http)
                 .ToList()
-                .ForEach(u =>
-                    u.DisplayText = string.Format(
+                .ForEach(urlAnnotation =>
+                    urlAnnotation.DisplayText = string.Format(
                         displayTextTemplate,
-                        u.Endpoint?.EndpointName.ToUpperInvariant()
+                        urlAnnotation.Endpoint?.EndpointName.ToUpperInvariant()
                     )
                 )
         );

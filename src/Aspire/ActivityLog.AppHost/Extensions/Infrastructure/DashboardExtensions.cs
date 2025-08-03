@@ -19,22 +19,22 @@ public static class DashboardExtensions
 
         builder.Eventing.Subscribe<BeforeStartEvent>((e, _) =>
             {
-                foreach (var r in e.Model.Resources.OfType<IResourceWithEnvironment>())
+                foreach (var resource in e.Model.Resources.OfType<IResourceWithEnvironment>())
                 {
-                    if (r == dashboard.Resource)
+                    if (resource == dashboard.Resource)
                     {
                         continue;
                     }
 
                     builder
-                        .CreateResourceBuilder(r)
-                        .WithEnvironment(c =>
+                        .CreateResourceBuilder(resource)
+                        .WithEnvironment(callbackContext =>
                         {
-                            c.EnvironmentVariables[DashboardConstants.OtelExporterOtlpEndpoint] =
+                            callbackContext.EnvironmentVariables[DashboardConstants.OtelExporterOtlpEndpoint] =
                                 dashboard.GetEndpoint(DashboardConstants.OtlpProtocol);
-                            c.EnvironmentVariables[DashboardConstants.OtelExporterOtlpProtocol] =
+                            callbackContext.EnvironmentVariables[DashboardConstants.OtelExporterOtlpProtocol] =
                                 DashboardConstants.GrpcProtocol;
-                            c.EnvironmentVariables[DashboardConstants.OtelServiceName] = r.Name;
+                            callbackContext.EnvironmentVariables[DashboardConstants.OtelServiceName] = resource.Name;
                         });
                 }
 
