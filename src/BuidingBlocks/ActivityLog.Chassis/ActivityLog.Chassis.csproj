@@ -5,6 +5,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ActivityLog.Constants\ActivityLog.Constants.csproj" />
     <ProjectReference Include="..\ActivityLog.SharedKernel\ActivityLog.SharedKernel.csproj" />
   </ItemGroup>
 </Project>
