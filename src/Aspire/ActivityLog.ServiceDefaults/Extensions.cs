@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using ActivityLog.ServiceDefaults.Kestrel;
 using ActivityLog.ServiceDefaults.Logging;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Configuration;
@@ -21,7 +22,7 @@ public static class Extensions
     private const string HealthEndpointPath = "/health";
     private const string AlivenessEndpointPath = "/alive";
 
-    public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
+    public static void AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
         builder.ConfigureOpenTelemetry();
 
@@ -37,14 +38,6 @@ public static class Extensions
             // Turn on service discovery by default
             http.AddServiceDiscovery();
         });
-
-        // Uncomment the following to restrict the allowed schemes for service discovery.
-        // builder.Services.Configure<ServiceDiscoveryOptions>(options =>
-        // {
-        //     options.AllowedSchemes = ["https"];
-        // });
-
-        return builder;
     }
 
     private static void ConfigureOpenTelemetry<TBuilder>(this TBuilder builder)
@@ -126,7 +119,8 @@ public static class Extensions
         var healthChecksRequestTimeout = healthChecksConfiguration.GetValue<TimeSpan?>("RequestTimeout")
                                          ?? TimeSpan.FromSeconds(5);
 
-        builder.Services.AddRequestTimeouts(timeouts => timeouts.AddPolicy(HealthChecks, healthChecksRequestTimeout));
+        builder.Services.AddRequestTimeouts(timeouts => 
+            timeouts.AddPolicy(HealthChecks, healthChecksRequestTimeout));
         
         // Cache health checks responses for the configured duration (defaults to 10 seconds)
         var healthChecksExpireAfter =
@@ -140,23 +134,27 @@ public static class Extensions
         builder.Services.AddHealthChecks()
             // Add a default liveness check to ensure app is responsive
             .AddCheck("self", () => HealthCheckResult.Healthy(), ["live"]);
-
     }
 
-    public static WebApplication MapDefaultEndpoints(this WebApplication app)
+    public static void MapDefaultEndpoints(this WebApplication app)
     {
-        // Adding health checks endpoints to applications in non-development environments has security implications.
-        // See https://aka.ms/dotnet/aspire/healthchecks for details before enabling these endpoints in non-development environments.
-        if (app.Environment.IsDevelopment())
-        {
-            // All health checks must pass for app to be considered ready to accept traffic after starting
-            app.MapHealthChecks(HealthEndpointPath);
+        app.UseExceptionHandler();
 
-            // Only health checks tagged with the "live" tag must pass for app to be considered alive
-            app.MapHealthChecks(AlivenessEndpointPath,
-                new HealthCheckOptions { Predicate = r => r.Tags.Contains("live") });
-        }
+        app.UseStatusCodePages();
 
-        return app;
+        app.UseDefaultCors();
+
+        // Configure health checks
+        var healthChecks = app.MapGroup("");
+
+        // Configure health checks endpoints to use the configured request timeouts and cache policies
+        healthChecks.CacheOutput(HealthChecks).WithRequestTimeout(HealthChecks);
+        
+        // All health checks must pass for app to be considered ready to accept traffic after starting
+        app.MapHealthChecks(HealthEndpointPath);
+
+        // Only health checks tagged with the "live" tag must pass for app to be considered alive
+        app.MapHealthChecks(AlivenessEndpointPath,
+            new HealthCheckOptions { Predicate = r => r.Tags.Contains("live") });
     }
 }
