@@ -1,3 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuidingBlocks\ActivityLog.SharedKernel\ActivityLog.SharedKernel.csproj" />
+  </ItemGroup>
 </Project>
