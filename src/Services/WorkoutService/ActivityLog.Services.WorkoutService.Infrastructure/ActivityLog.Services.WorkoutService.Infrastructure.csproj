@@ -3,5 +3,9 @@
     <ItemGroup>
         <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Application\ActivityLog.Services.WorkoutService.Application.csproj"/>
     </ItemGroup>
+  
+    <ItemGroup>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    </ItemGroup>
 
 </Project>
