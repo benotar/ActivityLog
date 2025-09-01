@@ -1,5 +1,4 @@
-﻿using ActivityLog.Services.WorkoutService.Domain.ExerciseAggregate;
-using ActivityLog.Services.WorkoutService.Domain.WorkoutAggregate;
+﻿using ActivityLog.Services.WorkoutService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ActivityLog.Services.WorkoutService.Infrastructure;
@@ -7,7 +6,6 @@ namespace ActivityLog.Services.WorkoutService.Infrastructure;
 public class WorkoutDbContext(DbContextOptions<WorkoutDbContext> options) : DbContext(options)
 {
     public DbSet<Workout> Workouts { get; set; }
-    public DbSet<Exercise> Exercises { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
