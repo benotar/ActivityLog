@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
     <ItemGroup>
+        <ProjectReference Include="..\..\..\BuidingBlocks\ActivityLog.Constants\ActivityLog.Constants.csproj" />
         <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Application\ActivityLog.Services.WorkoutService.Application.csproj"/>
     </ItemGroup>
   

@@ -5,4 +5,7 @@
   <ItemGroup>
     <PackageReference Include="ErrorOr" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
 </Project>
