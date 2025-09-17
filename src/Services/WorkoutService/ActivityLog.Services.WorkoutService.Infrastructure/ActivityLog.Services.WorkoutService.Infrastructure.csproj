@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
     <ItemGroup>
+        <ProjectReference Include="..\..\..\BuidingBlocks\ActivityLog.Chassis\ActivityLog.Chassis.csproj" />
+        <ProjectReference Include="..\..\..\BuidingBlocks\ActivityLog.Constants\ActivityLog.Constants.csproj" />
         <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Application\ActivityLog.Services.WorkoutService.Application.csproj"/>
     </ItemGroup>
   
     <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Hosting" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
     </ItemGroup>
 

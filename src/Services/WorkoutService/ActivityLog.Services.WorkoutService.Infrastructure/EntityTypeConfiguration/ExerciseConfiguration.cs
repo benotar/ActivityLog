@@ -1,4 +1,5 @@
-﻿using ActivityLog.Services.WorkoutService.Domain.ExerciseAggregate;
+﻿using ActivityLog.Constants.Core;
+using ActivityLog.Services.WorkoutService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,21 +9,19 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
 {
     public void Configure(EntityTypeBuilder<Exercise> builder)
     {
-        builder.HasKey(x => x.Id);
-
-        builder.Property(x => x.WorkoutId).IsRequired();
-
-        builder.HasOne(x => x.Workout)
-            .WithMany(w => w.Exercises)
-            .HasForeignKey(x => x.WorkoutId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.ToTable("Exercises");
         
-        builder.OwnsOne(p => p.Type, e =>
-        {
-            e.Property(p => p.Value).IsRequired();
-            e.Property(p => p.Value).HasMaxLength(25);
-        });
+        builder.HasKey(ex => ex.Id);
+        
+        builder.Property(ex => ex.Name).IsRequired().HasMaxLength(DataSchemaLength.ExtraLarge);
+        
+        builder.Property(ex => ex.Name).HasMaxLength(DataSchemaLength.ExtraLarge);
+        
+        builder.Property(ex => ex.Name).HasMaxLength(DataSchemaLength.ExtraLarge);
 
-        builder.HasQueryFilter(x => !x.Workout.IsDeleted);
+        builder.HasMany(ex => ex.WorkoutExercises)
+            .WithOne(we => we.Exercise)
+            .HasForeignKey(we => we.ExerciseId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

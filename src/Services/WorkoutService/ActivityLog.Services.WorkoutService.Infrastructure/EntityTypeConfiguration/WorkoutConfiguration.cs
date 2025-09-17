@@ -1,4 +1,5 @@
-﻿using ActivityLog.Services.WorkoutService.Domain.WorkoutAggregate;
+﻿using ActivityLog.Constants.Core;
+using ActivityLog.Services.WorkoutService.Domain.Entities;
 using ActivityLog.SharedKernel.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -9,14 +10,21 @@ public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
 {
     public void Configure(EntityTypeBuilder<Workout> builder)
     {
+        builder.ToTable("Workouts");
+        
         builder.HasKey(w => w.Id);
         
         builder.Property(w => w.UserId).IsRequired();
-        
-        builder.Property(w => w.Description).HasMaxLength(500);
 
+        builder.Property(w => w.Notes).HasMaxLength(DataSchemaLength.ExtraLarge);
+        
         builder.Property(w => w.CreatedAt).HasDefaultValueSql(DateTimeHelper.SqlUtcNow);
 
-        builder.Navigation(w => w.Exercises).AutoInclude();
+        builder.HasMany(w => w.WorkoutExercises)
+            .WithOne(we => we.Workout)
+            .HasForeignKey(we => we.WorkoutId)
+            .OnDelete(DeleteBehavior.Restrict);
+        
+        builder.HasQueryFilter(w => !w.IsDeleted);
     }
 }

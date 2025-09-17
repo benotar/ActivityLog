@@ -3,6 +3,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\..\Aspire\ActivityLog.ServiceDefaults\ActivityLog.ServiceDefaults.csproj"/>
         <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Application\ActivityLog.Services.WorkoutService.Application.csproj"/>
+        <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Infrastructure\ActivityLog.Services.WorkoutService.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
