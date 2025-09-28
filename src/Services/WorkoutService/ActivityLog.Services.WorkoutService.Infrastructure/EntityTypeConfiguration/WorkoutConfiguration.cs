@@ -24,7 +24,5 @@ public class WorkoutConfiguration : IEntityTypeConfiguration<Workout>
             .WithOne(we => we.Workout)
             .HasForeignKey(we => we.WorkoutId)
             .OnDelete(DeleteBehavior.Restrict);
-        
-        builder.HasQueryFilter(w => !w.IsDeleted);
     }
 }
