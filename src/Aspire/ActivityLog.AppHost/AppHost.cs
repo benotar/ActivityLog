@@ -10,8 +10,8 @@ builder.AddDashboard();
 
 builder.AddDockerComposeEnvironment("env");
 
-var postgresUser = builder.AddParameter(PostgresConstants.DbUserParam, secret: true);
-var postgresPassword = builder.AddParameter(PostgresConstants.DbPasswordParam, secret: true);
+var postgresUser = builder.AddParameter(PostgresConstants.DbUserParam, PostgresConstants.DbUserDefault, secret: true);
+var postgresPassword = builder.AddParameter(PostgresConstants.DbPasswordParam, PostgresConstants.DbPasswordDefault, secret: true);
 var postgresDbName = builder
     .AddParameter(PostgresConstants.DbNameParam, PostgresConstants.DbName, publishValueAsDefault: true);
 

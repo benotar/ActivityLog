@@ -1,4 +1,5 @@
 ﻿using ActivityLog.Chassis.Configuration;
+using ActivityLog.Chassis.EF;
 using ActivityLog.Services.WorkoutService.Application.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,5 +17,7 @@ public static class Extensions
         builder.Services.AddDbContext<WorkoutDbContext>(options =>
             options.UseNpgsql(string.Format(dbConfig.ConnectionString, dbConfig.User, dbConfig.Password,
                 dbConfig.Host, dbConfig.DbName)));
+
+        builder.Services.AddMigration<WorkoutDbContext>();
     }
 }

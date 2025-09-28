@@ -2,7 +2,7 @@
 
 namespace ActivityLog.Services.WorkoutService.Domain.Entities;
 
-public class Workout : AuditableEntity, ISoftDelete
+public class Workout : AuditableEntity
 { 
     public Guid UserId { get; set; }
     
@@ -11,6 +11,4 @@ public class Workout : AuditableEntity, ISoftDelete
     public ICollection<WorkoutExercise> WorkoutExercises { get; set; } = [];
 
     public double TotalCalories => WorkoutExercises.Sum(we => we.TotalCalories);
-    
-    public bool IsDeleted { get; set; }
 }
