@@ -3,8 +3,7 @@
 public static class DashboardConstants
 {
     public const string Marker = "dashboard";
-    public const string UiName = "dashboard-ui";
-    public const string ContainerImageName = "mcr.microsoft.com/dotnet/nightly/aspire-dashboard";
+    public const string ContainerImageName = "mcr.microsoft.com/dotnet/aspire-dashboard:latest";
     public const int ContainerPort = 18888;
     public const int OtlpPort = 18889;
     public const string OtlpProtocol = "otlp";

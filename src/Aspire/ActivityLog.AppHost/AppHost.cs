@@ -1,8 +1,6 @@
 using ActivityLog.AppHost.Extensions.Network;
 using ActivityLog.AppHost.Extensions.Infrastructure;
-using ActivityLog.Constants.Database;
-using ActivityLog.Constants.Services;
-using ActivityLog.Constants.Shared;
+using ActivityLog.Constants.Aspire;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -10,23 +8,26 @@ builder.AddDashboard();
 
 builder.AddDockerComposeEnvironment("env");
 
-var postgresUser = builder.AddParameter(PostgresConstants.DbUserParam, PostgresConstants.DbUserDefault, secret: true);
-var postgresPassword = builder.AddParameter(PostgresConstants.DbPasswordParam, PostgresConstants.DbPasswordDefault, secret: true);
-var postgresDbName = builder
-    .AddParameter(PostgresConstants.DbNameParam, PostgresConstants.DbName, publishValueAsDefault: true);
+var pgUser = builder.AddParameter("pg-user", "admin", true);
 
-var postgresDb = builder
-    .AddPostgres(PostgresConstants.Marker, postgresUser, postgresPassword, port: PostgresConstants.Port)
-    .WithImage(PostgresConstants.Marker, SharedConstants.LatestTag)
-    .WithContainerName(PostgresConstants.ContainerName)
-    .WithLifetime(ContainerLifetime.Persistent)
-    .WithDataVolume(PostgresConstants.Volume)
-    .WithEnvironment(PostgresConstants.DbNameEnv, postgresDbName);
+var pgPassword = builder.AddParameter("pg-password", "admin", true);
 
-var workout = builder
-    .AddProject<Projects.ActivityLog_Services_WorkoutService_API>(WorkoutConstants.Name)
-    .WithReference(postgresDb)
-    .WaitFor(postgresDb)
+var postgres = builder
+    .AddPostgres(Components.Postgres, pgUser, pgPassword, port: Components.Database.Port)
+    .WithPgWeb()
+    .WithLifetime(ContainerLifetime.Session)
+    .WithDataVolume()
+    .WithIconName("HomeDatabase");
+
+pgUser.WithParentRelationship(postgres);
+
+var workoutDb = postgres.AddDatabase(Components.Database.Workout);
+
+builder
+    .AddProject<Projects.ActivityLog_Services_WorkoutService_API>(Services.Workout)
+    .WithExternalHttpEndpoints()
+    .WithReference(workoutDb)
+    .WaitFor(workoutDb)
     .WithOpenApi()
     .WithHealthCheck();
 

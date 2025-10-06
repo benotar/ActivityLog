@@ -1,4 +1,4 @@
-﻿using ActivityLog.Services.WorkoutService.Application.Options;
+﻿using ActivityLog.Services.WorkoutService.Application.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

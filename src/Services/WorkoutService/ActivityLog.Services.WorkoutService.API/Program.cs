@@ -12,6 +12,7 @@ builder.AddServiceDefaults();
 builder.AddDefaultCors();
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
 builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
@@ -19,6 +20,7 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 builder.AddApplication();
+
 builder.AddPersistence();
 
 var app = builder.Build();
