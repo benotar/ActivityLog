@@ -3,6 +3,7 @@ using ActivityLog.ServiceDefaults;
 using ActivityLog.ServiceDefaults.ApiSpecification.OpenApi;
 using ActivityLog.ServiceDefaults.Kestrel;
 using ActivityLog.Services.WorkoutService.Application;
+using ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 using ActivityLog.Services.WorkoutService.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,20 +16,22 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 builder.Services.AddProblemDetails();
 
-builder.Services.AddControllers();
+//builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
-builder.AddApplication();
+builder.AddApplicationLayer();
 
-builder.AddPersistence();
+builder.AddPersistenceLayer();
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-app.MapControllers();
+//app.MapControllers();
 
 app.UseDefaultOpenApi();
+
+app.MapGet("/api/Customer", async (IExerciseService exerciseService) => await exerciseService.GetAllAsync());
 
 app.Run();

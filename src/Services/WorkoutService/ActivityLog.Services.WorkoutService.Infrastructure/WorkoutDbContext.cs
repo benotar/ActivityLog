@@ -1,9 +1,10 @@
-﻿using ActivityLog.Services.WorkoutService.Domain.Entities;
+﻿using ActivityLog.Services.WorkoutService.Application.Interfaces.Infrastructure;
+using ActivityLog.Services.WorkoutService.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace ActivityLog.Services.WorkoutService.Infrastructure;
 
-public class WorkoutDbContext(DbContextOptions<WorkoutDbContext> options) : DbContext(options)
+public class WorkoutDbContext(DbContextOptions<WorkoutDbContext> options) : DbContext(options), IWorkoutDbContext
 {
     public DbSet<Workout> Workouts { get; set; }
     

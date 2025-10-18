@@ -6,6 +6,7 @@
     </ItemGroup>
     
     <ItemGroup>
+      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
       <PackageReference Include="Microsoft.Extensions.Hosting" />
     </ItemGroup>
 

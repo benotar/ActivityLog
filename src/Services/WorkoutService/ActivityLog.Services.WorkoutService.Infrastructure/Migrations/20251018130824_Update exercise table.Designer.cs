@@ -3,6 +3,7 @@ using System;
 using ActivityLog.Services.WorkoutService.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ActivityLog.Services.WorkoutService.Infrastructure.Migrations
 {
     [DbContext(typeof(WorkoutDbContext))]
-    partial class WorkoutDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251018130824_Update exercise table")]
+    partial class Updateexercisetable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
