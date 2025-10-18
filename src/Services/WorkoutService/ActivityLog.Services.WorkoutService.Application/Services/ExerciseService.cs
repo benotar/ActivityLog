@@ -23,16 +23,16 @@ public class ExerciseService : IExerciseService
 
     public async Task<ErrorOr<Guid>> CreateAsync(ExerciseModel exercise)
     {
-        var validationResult = _validator.Validate(exercise);
-
-        if (!validationResult.IsValid)
-        {
-            var errors = validationResult.Errors
-                .Select(e => Error.Validation(e.PropertyName, e.ErrorMessage))
-                .ToList();
-
-            return errors;
-        }
+        // var validationResult = _validator.Validate(exercise);
+        //
+        // if (!validationResult.IsValid)
+        // {
+        //     var errors = validationResult.Errors
+        //         .Select(e => Error.Validation(e.PropertyName, e.ErrorMessage))
+        //         .ToList();
+        //
+        //     return errors;
+        // }
         
         if (await _dbContext.Exercises.AnyAsync(ex => ex.Id.Equals(exercise.Id)))
         {
