@@ -15,9 +15,9 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
         
         builder.Property(ex => ex.Name).IsRequired().HasMaxLength(DataSchemaLength.ExtraLarge);
         
-        builder.Property(ex => ex.Name).HasMaxLength(DataSchemaLength.ExtraLarge);
+        builder.Property(ex => ex.Equipment).HasMaxLength(DataSchemaLength.ExtraLarge);
         
-        builder.Property(ex => ex.Name).HasMaxLength(DataSchemaLength.ExtraLarge);
+        builder.Property(ex => ex.MuscleGroup).HasMaxLength(DataSchemaLength.ExtraLarge);
 
         builder.HasMany(ex => ex.WorkoutExercises)
             .WithOne(we => we.Exercise)

@@ -2,10 +2,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuidingBlocks\ActivityLog.SharedKernel\ActivityLog.SharedKernel.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ErrorOr" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
 </Project>
