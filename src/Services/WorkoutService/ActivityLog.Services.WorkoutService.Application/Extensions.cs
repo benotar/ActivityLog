@@ -16,8 +16,8 @@ public static class Extensions
 
         services.Configure<DatabaseConfiguration>(builder.Configuration.GetSection(DatabaseConfiguration.Key));
 
-        services.AddScoped<IExerciseService, ExerciseService>();
-
         services.AddValidatorsFromAssembly(typeof(Extensions).Assembly, includeInternalTypes: true);
+
+        services.AddScoped<IExerciseService, ExerciseService>();
     }
 }

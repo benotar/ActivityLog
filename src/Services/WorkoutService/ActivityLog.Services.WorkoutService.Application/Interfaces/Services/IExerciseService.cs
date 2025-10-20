@@ -1,11 +1,11 @@
-﻿using ActivityLog.Services.WorkoutService.Application.Models;
-using ErrorOr;
+﻿using ActivityLog.Services.WorkoutService.Application.Common;
+using ActivityLog.Services.WorkoutService.Application.Models;
 
 namespace ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 
 public interface IExerciseService
 {
-    Task<ErrorOr<Guid>> CreateAsync(ExerciseModel exercise);
+    Task<Result<Guid>> CreateAsync(CreateExerciseRequest exercise);
 
-    Task<IEnumerable<ExerciseModel>> GetAllAsync();
+    Task<Result<IEnumerable<ExerciseInfo>>> GetAllAsync();
 }
