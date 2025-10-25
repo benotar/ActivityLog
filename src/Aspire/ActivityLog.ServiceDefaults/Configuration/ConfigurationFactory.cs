@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace ActivityLog.Chassis.Configuration;
+namespace ActivityLog.ServiceDefaults.Configuration;
 
 public static class ConfigurationFactory
 {

@@ -1,11 +1,15 @@
-﻿using ActivityLog.Services.WorkoutService.Application.Common;
-using ActivityLog.Services.WorkoutService.Application.Models;
+﻿using ActivityLog.Services.WorkoutService.Application.Models;
+using ActivityLog.SharedKernel.Domain;
 
 namespace ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 
 public interface IExerciseService
 {
-    Task<Result<Guid>> CreateAsync(CreateExerciseRequest exercise);
+    Task<Result<Guid>> CreateAsync(CreateExerciseRequest exercise,CancellationToken cancellationToken = default);
 
-    Task<Result<IEnumerable<ExerciseInfo>>> GetAllAsync();
+    Task<Result<Unit>> RemoveAsync(Guid id,CancellationToken cancellationToken = default);
+    
+    Task<Result<ExerciseInfo>> GetByNameAsync(string name, CancellationToken cancellationToken = default);
+    
+    Task<Result<IEnumerable<ExerciseInfo>>> GetAllAsync(CancellationToken cancellationToken = default);
 }

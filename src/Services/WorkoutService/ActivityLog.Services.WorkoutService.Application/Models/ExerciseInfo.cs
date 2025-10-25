@@ -7,11 +7,7 @@ public sealed record ExerciseInfo(
     string MuscleGroup);
 
 
-public sealed class CreateExerciseRequest
-{
-    public string Name { get; set; }
-    
-    public string? Equipment { get; set; }
-    
-    public string MuscleGroup { get; set; }
-}
+public sealed record CreateExerciseRequest(
+    string Name, 
+    string? Equipment, 
+    string MuscleGroup);

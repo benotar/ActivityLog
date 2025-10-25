@@ -1,8 +1,7 @@
-﻿using ActivityLog.Chassis.Configuration;
-using ActivityLog.Chassis.EF;
+﻿using ActivityLog.Chassis.EF;
+using ActivityLog.ServiceDefaults.Configuration;
 using ActivityLog.Services.WorkoutService.Application.Configuration;
 using ActivityLog.Services.WorkoutService.Application.Interfaces.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -15,14 +14,15 @@ public static class Extensions
         var dbConfig = ConfigurationFactory
             .BindAndGet(builder.Configuration, DatabaseConfiguration.Key, () => new DatabaseConfiguration());
 
-        builder.Services.AddDbContext<WorkoutDbContext>(options =>
-            options.UseNpgsql(string.Format(dbConfig.ConnectionString,
-                dbConfig.User,
-                dbConfig.Password,
-                dbConfig.Name)));
+        var connectionString = string.Format(dbConfig.ConnectionString,
+            dbConfig.User,
+            dbConfig.Password,
+            dbConfig.Name);
 
         builder.Services.AddScoped<IWorkoutDbContext>(provider => provider.GetRequiredService<WorkoutDbContext>());
 
-        builder.Services.AddMigration<WorkoutDbContext, WorkoutDbContextSeed>();
+        builder.AddPostgresDbContext<WorkoutDbContext>(
+            connectionString,
+            app => app.Services.AddMigration<WorkoutDbContext, WorkoutDbContextSeed>());
     }
 }

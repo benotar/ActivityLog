@@ -1,10 +1,10 @@
-﻿namespace ActivityLog.Services.WorkoutService.Application.Common;
+﻿namespace ActivityLog.SharedKernel.Domain;
 
 public class Result<T>
 {
     public T? Data { get; set; }
 
-    public string? ErrorMessage { get; set; }
+    public ErrorCode? ErrorCode { get; set; }
     
     public bool IsSuccess { get; init; }
 
@@ -12,17 +12,19 @@ public class Result<T>
     {
         IsSuccess = true;
         Data = data;
-        ErrorMessage = null;
+        ErrorCode = null;
     }
 
-    private Result(string? errorMessage)
+    private Result(ErrorCode? errorCode)
     {
         IsSuccess = false;
         Data = default;
-        ErrorMessage = errorMessage;
+        ErrorCode = errorCode;
     }
     
     public static implicit operator Result<T>(T? data) => new Result<T>(data);
 
-    public static implicit operator Result<T>(string error) => new Result<T>(error);
+    public static implicit operator Result<T>(ErrorCode error) => new Result<T>(error);
 }
+
+public record struct Unit;
