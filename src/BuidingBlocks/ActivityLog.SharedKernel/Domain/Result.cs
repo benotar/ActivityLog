@@ -22,6 +22,8 @@ public class Result<T>
         ErrorCode = errorCode;
     }
     
+    public static Result<T> Success(T? data) => new Result<T>(data);
+    
     public static implicit operator Result<T>(T? data) => new Result<T>(data);
 
     public static implicit operator Result<T>(ErrorCode error) => new Result<T>(error);

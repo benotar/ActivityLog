@@ -10,7 +10,7 @@ public static class ErrorCodeExtensions
         {
             ErrorCode.NothingToDelete => "There is nothing to delete",
             ErrorCode.AlreadyExists => "The record already exist in the database",
-            ErrorCode.NotFound => "The record doesn't exist in the database",
+            ErrorCode.NotFound => "The requested data doesn't exist in the database",
             _ => "An unexpected error occurred"
         };
     }

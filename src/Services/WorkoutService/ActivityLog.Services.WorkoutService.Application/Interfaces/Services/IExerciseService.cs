@@ -5,7 +5,7 @@ namespace ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 
 public interface IExerciseService
 {
-    Task<Result<Guid>> CreateAsync(CreateExerciseRequest exercise,CancellationToken cancellationToken = default);
+    Task<Result<Guid>> CreateAsync(CreateExerciseRequest request,CancellationToken cancellationToken = default);
 
     Task<Result<Unit>> RemoveAsync(Guid id,CancellationToken cancellationToken = default);
     

@@ -1,5 +1,4 @@
 ﻿using ActivityLog.Services.WorkoutService.Application.Configuration;
-using ActivityLog.Services.WorkoutService.Application.Interfaces;
 using ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 using ActivityLog.Services.WorkoutService.Application.Services;
 using FluentValidation;
@@ -19,5 +18,11 @@ public static class Extensions
         services.AddValidatorsFromAssembly(typeof(Extensions).Assembly, includeInternalTypes: true);
 
         services.AddScoped<IExerciseService, ExerciseService>();
+
+        services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
+
+        services.AddScoped<IWorkoutService, Services.WorkoutService>();
+
+        services.AddScoped<IWorkoutSetService, WorkoutSetService>();
     }
 }
