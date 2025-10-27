@@ -1,4 +1,6 @@
-﻿namespace ActivityLog.Services.WorkoutService.Application.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ActivityLog.Services.WorkoutService.Application.Models;
 
 public sealed record WorkoutInfo(
     Guid Id,
@@ -10,5 +12,5 @@ public sealed record WorkoutInfo(
 
 public sealed record CreateWorkoutRequest(
     Guid UserId,
-    string Notes
+    [Required] string Notes
 );

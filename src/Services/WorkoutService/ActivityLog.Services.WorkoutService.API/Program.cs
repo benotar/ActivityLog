@@ -7,7 +7,6 @@ using ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 using ActivityLog.Services.WorkoutService.Application.Models;
 using ActivityLog.Services.WorkoutService.Infrastructure;
 using ActivityLog.SharedKernel.Extensions;
-using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,19 +31,15 @@ app.MapDefaultEndpoints();
 
 app.UseDefaultOpenApi();
 
-app.MapPost("/api/exercise/create", async (CreateExerciseRequest request, IExerciseService exerciseService, IValidator<CreateExerciseRequest> validator, CancellationToken cancellationToken) =>
-{
-    var validationResult = validator.Validate(request);
-
-    if (!validationResult.IsValid)
+app.MapPost("/api/exercise/create",
+    async (CreateExerciseRequest request, IExerciseService exerciseService, CancellationToken cancellationToken) =>
     {
-        return Results.BadRequest(new { errors = validationResult.Errors.Select(e => e.ErrorMessage).ToArray() });
-    }
+        var createExerciseResult = await exerciseService.CreateAsync(request, cancellationToken);
 
-    var createExerciseResult = await exerciseService.CreateAsync(request, cancellationToken);
-
-    return !createExerciseResult.IsSuccess ? Results.BadRequest(createExerciseResult.ErrorCode) : Results.Ok(createExerciseResult.Data);
-});
+        return !createExerciseResult.IsSuccess
+            ? Results.BadRequest(createExerciseResult.ErrorCode)
+            : Results.Ok(createExerciseResult.Data);
+    });
 
 app.MapGet("/api/exercise/get", async (IExerciseService exerciseService, CancellationToken cancellationToken) =>
 {
@@ -54,7 +49,7 @@ app.MapGet("/api/exercise/get", async (IExerciseService exerciseService, Cancell
 });
 
 app.MapGet("/api/exercise/get-by-name",
-    async ([FromQuery]string name, IExerciseService exerciseService, CancellationToken cancellationToken) =>
+    async ([FromQuery] string name, IExerciseService exerciseService, CancellationToken cancellationToken) =>
     {
         var getResult = await exerciseService.GetByNameAsync(name, cancellationToken);
 

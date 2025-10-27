@@ -1,7 +1,6 @@
 ﻿using ActivityLog.Services.WorkoutService.Application.Configuration;
 using ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 using ActivityLog.Services.WorkoutService.Application.Services;
-using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -14,9 +13,7 @@ public static class Extensions
         var services = builder.Services;
 
         services.Configure<DatabaseConfiguration>(builder.Configuration.GetSection(DatabaseConfiguration.Key));
-
-        services.AddValidatorsFromAssembly(typeof(Extensions).Assembly, includeInternalTypes: true);
-
+        
         services.AddScoped<IExerciseService, ExerciseService>();
 
         services.AddScoped<IWorkoutExerciseService, WorkoutExerciseService>();
