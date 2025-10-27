@@ -52,7 +52,8 @@ public class WorkoutExerciseService : IWorkoutExerciseService
             return item.ToModel();
         }
 
-        _logger.LogWarning("The element \'workout exercise\' with the id {WorkoutExerciseId} was not found in the database",
+        _logger.LogWarning(
+            "The element \'workout exercise\' with the specified id {WorkoutExerciseId} was not found in the database",
             id);
 
         return ErrorCode.NotFound;
