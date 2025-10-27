@@ -25,6 +25,8 @@ builder.AddApplicationLayer();
 
 builder.AddPersistenceLayer();
 
+//builder.AddMassTransitRabbitMq("rmq");
+
 var app = builder.Build();
 
 app.MapDefaultEndpoints();

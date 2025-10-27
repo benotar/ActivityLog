@@ -37,7 +37,7 @@ public class QueryPerformanceInterceptor: DbCommandInterceptor
         }
 
         _logger.LogWarning(
-            "Slow query detected: {CommandText} | Elapsed time: {ElapsedMillisends} ms",
+            "Slow query detected: {CommandText} | Elapsed time: {ElapsedMilliseconds} ms",
             commandText,
             stopwatch.ElapsedMilliseconds);
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ActivityLog.SharedKernel.Extensions;
 
 namespace ActivityLog.Services.WorkoutService.Application.Models;
 
@@ -10,9 +11,20 @@ public sealed record WorkoutSetInfo(
     double Calories
 );
 
-public sealed record CreateWorkoutSetRequest(
-    Guid WorkoutExerciseId,
-    [MinLength(1)] int Reps,
-    [MinLength(0)] double Weight,
-    [MinLength(1)] double Calories
-);
+public sealed record CreateWorkoutSetRequest : IValidatableObject
+{
+    public Guid WorkoutExerciseId { get; init; }
+    [MinLength(1)] public int Reps { get; init; }
+    [MinLength(0)] public double Weight { get; init; }
+    [MinLength(1)] public double Calories { get; init; }
+
+    public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+    {
+        if (WorkoutExerciseId.IsEmpty())
+        {
+            yield return new ValidationResult(
+                "The workout exercise id cannot be an empty GUID",
+                [nameof(WorkoutExerciseId)]);
+        }
+    }
+}

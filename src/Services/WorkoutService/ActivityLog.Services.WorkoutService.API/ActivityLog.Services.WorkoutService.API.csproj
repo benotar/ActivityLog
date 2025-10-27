@@ -6,4 +6,8 @@
         <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Infrastructure\ActivityLog.Services.WorkoutService.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Aspire.MassTransit.RabbitMQ" />
+    </ItemGroup>
+
 </Project>

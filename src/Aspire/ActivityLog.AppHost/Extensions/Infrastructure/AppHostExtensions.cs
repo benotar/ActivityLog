@@ -2,7 +2,7 @@
 
 namespace ActivityLog.AppHost.Extensions.Infrastructure;
 
-public static class DashboardExtensions
+public static class AppHostExtensions
 {
     public static void AddDashboard(this IDistributedApplicationBuilder builder)
     {
@@ -41,5 +41,38 @@ public static class DashboardExtensions
                 return Task.CompletedTask;
             }
         );
+    }
+
+    public static IResourceBuilder<PostgresServerResource> AddConfiguredPostgres(this IDistributedApplicationBuilder builder)
+    {
+        var pgUser = builder.AddParameterFromConfiguration("pgUser", Components.Postgres.User, true);
+        var pgPassword = builder.AddParameterFromConfiguration("pgPassword", Components.Postgres.Password, true);
+
+        var postgres = builder
+            .AddPostgres(Components.Postgres.Name, pgUser, pgPassword, port: Components.Postgres.Port)
+            .WithPgWeb()
+            .WithLifetime(ContainerLifetime.Session)
+            .WithDataVolume()
+            .WithIconName("HomeDatabase");
+
+        pgUser.WithParentRelationship(postgres);
+        pgPassword.WithParentRelationship(postgres);
+
+        return postgres;
+    }
+
+    public static IResourceBuilder<RabbitMQServerResource> AddConfiguredRabbitMq(this IDistributedApplicationBuilder builder)
+    {
+        var rmqUser = builder.AddParameterFromConfiguration("rmqUser", Components.RabbitMq.User, true);
+        var rmqPassword = builder.AddParameterFromConfiguration("rmqPassword", Components.RabbitMq.Password, true);
+
+        var rmq = builder
+            .AddRabbitMQ(Components.RabbitMq.Name, rmqUser, rmqPassword)
+            .WithManagementPlugin();
+
+        rmqUser.WithParentRelationship(rmq);
+        rmqPassword.WithParentRelationship(rmq);
+
+        return rmq;
     }
 }

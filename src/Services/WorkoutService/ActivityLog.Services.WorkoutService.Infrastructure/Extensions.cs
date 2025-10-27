@@ -1,7 +1,7 @@
 ﻿using ActivityLog.Chassis.EF;
-using ActivityLog.ServiceDefaults.Configuration;
-using ActivityLog.Services.WorkoutService.Application.Configuration;
+using ActivityLog.Constants.Aspire;
 using ActivityLog.Services.WorkoutService.Application.Interfaces.Infrastructure;
+using ActivityLog.SharedKernel.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -11,18 +11,17 @@ public static class Extensions
 {
     public static void AddPersistenceLayer(this IHostApplicationBuilder builder)
     {
-        var dbConfig = ConfigurationFactory
-            .BindAndGet(builder.Configuration, DatabaseConfiguration.Key, () => new DatabaseConfiguration());
+        var connectionString = builder.Configuration.GetSection($"{Components.ConnectionStrings}:{Components.Postgres.Workout}");
 
-        var connectionString = string.Format(dbConfig.ConnectionString,
-            dbConfig.User,
-            dbConfig.Password,
-            dbConfig.Name);
-
+        if (connectionString.Value!.IsNullOrEmpty())
+        {
+            throw new InvalidOperationException($"The {Components.Postgres.Workout} connection string is empty");
+        }
+        
         builder.Services.AddScoped<IWorkoutDbContext>(provider => provider.GetRequiredService<WorkoutDbContext>());
 
         builder.AddPostgresDbContext<WorkoutDbContext>(
-            connectionString,
+            connectionString.Value!,
             app => app.Services.AddMigration<WorkoutDbContext, WorkoutDbContextSeed>());
     }
 }
