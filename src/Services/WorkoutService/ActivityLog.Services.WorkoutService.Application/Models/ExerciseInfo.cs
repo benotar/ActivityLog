@@ -1,17 +1,16 @@
-﻿namespace ActivityLog.Services.WorkoutService.Application.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ActivityLog.Services.WorkoutService.Application.Models;
 
 public sealed record ExerciseInfo(
     Guid Id,
     string Name,
     string Equipment,
-    string MuscleGroup);
+    string MuscleGroup
+);
 
-
-public sealed class CreateExerciseRequest
-{
-    public string Name { get; set; }
-    
-    public string? Equipment { get; set; }
-    
-    public string MuscleGroup { get; set; }
-}
+public sealed record CreateExerciseRequest(
+    [Required] string Name,
+    string? Equipment,
+    [Required] string MuscleGroup
+);

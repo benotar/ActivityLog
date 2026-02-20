@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-    
+
     <ItemGroup>
-        <ProjectReference Include="..\..\..\Aspire\ActivityLog.ServiceDefaults\ActivityLog.ServiceDefaults.csproj" />
+        <ProjectReference Include="..\..\..\Aspire\ActivityLog.ServiceDefaults\ActivityLog.ServiceDefaults.csproj"/>
         <ProjectReference Include="..\ActivityLog.Services.WorkoutService.Domain\ActivityLog.Services.WorkoutService.Domain.csproj"/>
     </ItemGroup>
-    
+
     <ItemGroup>
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
-      <PackageReference Include="Microsoft.Extensions.Hosting" />
+        <PackageReference Include="Microsoft.Extensions.Hosting"/>
     </ItemGroup>
+
+    <PropertyGroup>
+        <InterceptorsNamespaces>$(InterceptorsNamespaces);Microsoft.AspNetCore.Http.Validation.Generated</InterceptorsNamespaces>
+    </PropertyGroup>
 
 </Project>

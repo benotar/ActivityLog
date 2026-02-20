@@ -8,26 +8,30 @@ builder.AddDashboard();
 
 builder.AddDockerComposeEnvironment("env");
 
-var pgUser = builder.AddParameter("pg-user", "admin", true);
+// Postgres
+var postgres = builder.AddConfiguredPostgres();
+var workoutDb = postgres.AddDatabase(Components.Postgres.Workout);
+var identityDb = postgres.AddDatabase(Components.Postgres.Identity);
 
-var pgPassword = builder.AddParameter("pg-password", "admin", true);
+// RabbitMQ
+var rmq = builder.AddConfiguredRabbitMq();
 
-var postgres = builder
-    .AddPostgres(Components.Postgres, pgUser, pgPassword, port: Components.Database.Port)
-    .WithPgWeb()
-    .WithLifetime(ContainerLifetime.Session)
-    .WithDataVolume()
-    .WithIconName("HomeDatabase");
-
-pgUser.WithParentRelationship(postgres);
-
-var workoutDb = postgres.AddDatabase(Components.Database.Workout);
-
+// Workout service
 builder
     .AddProject<Projects.ActivityLog_Services_WorkoutService_API>(Services.Workout)
     .WithExternalHttpEndpoints()
     .WithReference(workoutDb)
+    .WithReference(rmq)
     .WaitFor(workoutDb)
+    .WaitFor(rmq)
+    .WithOpenApi()
+    .WithHealthCheck();
+
+builder
+    .AddProject<Projects.ActivityLog_IdentityService>(Services.Identity)
+    .WithExternalHttpEndpoints()
+    .WithReference(identityDb)
+    .WaitFor(identityDb)
     .WithOpenApi()
     .WithHealthCheck();
 

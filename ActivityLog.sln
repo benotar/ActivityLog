@@ -43,6 +43,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{F9FD13
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLog.Constants", "src\BuidingBlocks\ActivityLog.Constants\ActivityLog.Constants.csproj", "{251C6C85-8410-4921-8FC9-B539AF6F92F9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{30724092-6E31-47DE-968D-0B5772AEB407}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLog.IdentityService", "src\Services\IdentityService\ActivityLog.IdentityService\ActivityLog.IdentityService.csproj", "{19A18E28-E898-45EA-9318-20C04AB53C26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -62,6 +66,8 @@ Global
 		{A15C7F15-D2DB-42EC-A408-55F5C768A62E} = {CCEE8651-4044-4917-B8E0-DBC173767530}
 		{771FA487-A5DA-4B35-9576-0AF7702225E3} = {CCEE8651-4044-4917-B8E0-DBC173767530}
 		{251C6C85-8410-4921-8FC9-B539AF6F92F9} = {CCEE8651-4044-4917-B8E0-DBC173767530}
+		{30724092-6E31-47DE-968D-0B5772AEB407} = {5732CC27-AAAC-4BEE-9805-0A0FCFA52290}
+		{19A18E28-E898-45EA-9318-20C04AB53C26} = {30724092-6E31-47DE-968D-0B5772AEB407}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D650BF86-3C18-4DB9-8B18-875E7E3A48FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -100,5 +106,9 @@ Global
 		{251C6C85-8410-4921-8FC9-B539AF6F92F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{251C6C85-8410-4921-8FC9-B539AF6F92F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{251C6C85-8410-4921-8FC9-B539AF6F92F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19A18E28-E898-45EA-9318-20C04AB53C26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19A18E28-E898-45EA-9318-20C04AB53C26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19A18E28-E898-45EA-9318-20C04AB53C26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19A18E28-E898-45EA-9318-20C04AB53C26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

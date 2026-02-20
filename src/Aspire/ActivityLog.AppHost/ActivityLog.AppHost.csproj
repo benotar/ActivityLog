@@ -11,9 +11,11 @@
     <PackageReference Include="Aspire.Hosting.AppHost" />
     <PackageReference Include="Aspire.Hosting.Docker" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
+    <PackageReference Include="Aspire.Hosting.RabbitMQ" />
   </ItemGroup>
 
   <ItemGroup Label="Services">
+    <ProjectReference Include="..\..\Services\IdentityService\ActivityLog.IdentityService\ActivityLog.IdentityService.csproj" />
     <ProjectReference Include="..\..\Services\WorkoutService\ActivityLog.Services.WorkoutService.API\ActivityLog.Services.WorkoutService.API.csproj" />
   </ItemGroup>
   

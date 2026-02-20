@@ -2,7 +2,7 @@
 
 namespace ActivityLog.Services.WorkoutService.Domain.Entities;
 
-public class Exercise : Entity
+public class Exercise : Entity, IName
 {
     public string Name { get; set; }
     

@@ -1,46 +1,70 @@
-﻿using ActivityLog.Services.WorkoutService.Application.Common;
+﻿using ActivityLog.Chassis.EF;
 using ActivityLog.Services.WorkoutService.Application.Interfaces.Infrastructure;
 using ActivityLog.Services.WorkoutService.Application.Interfaces.Services;
 using ActivityLog.Services.WorkoutService.Application.Models;
 using ActivityLog.Services.WorkoutService.Domain.Entities;
+using ActivityLog.SharedKernel.Domain;
 using ActivityLog.SharedKernel.Extensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace ActivityLog.Services.WorkoutService.Application.Services;
 
 public class ExerciseService : IExerciseService
 {
     private readonly IWorkoutDbContext _dbContext;
+    private readonly ILogger<ExerciseService> _logger;
 
-    public ExerciseService(IWorkoutDbContext dbContext)
+    public ExerciseService(IWorkoutDbContext dbContext, ILogger<ExerciseService> logger)
     {
         _dbContext = dbContext;
+        _logger = logger;
     }
 
-    public async Task<Result<Guid>>CreateAsync(CreateExerciseRequest exercise)
+    public async Task<Result<Guid>> CreateAsync(CreateExerciseRequest request, CancellationToken cancellationToken = default)
     {
-        if (await _dbContext.Exercises.AnyAsync(x => x.Name == exercise.Name))
+        if (await _dbContext.Exercises.AnyAsync(x => x.Name == request.Name, cancellationToken: cancellationToken))
         {
-            return $"The exercise \'{exercise.Name}\' already exists in the database";
+            _logger.LogWarning("The exercise with name '{ExerciseName}' not found in the database", request.Name);
+            return ErrorCode.AlreadyExists;
         }
-        
-        var newExercise = new Exercise
-        {
-            Name = exercise.Name, MuscleGroup = exercise.MuscleGroup, Equipment = exercise.Equipment
-        };
 
-        _dbContext.Exercises.Add(newExercise);
+        var newItem = new Exercise { Name = request.Name, MuscleGroup = request.MuscleGroup, Equipment = request.Equipment };
 
-        await _dbContext.SaveChangesAsync();
+        _dbContext.Exercises.Add(newItem);
 
-        return newExercise.Id;
+        await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return newItem.Id;
     }
 
-    public async Task<Result<IEnumerable<ExerciseInfo>>> GetAllAsync()
+    public async Task<Result<Unit>> RemoveAsync(Guid id, CancellationToken cancellationToken = default)
     {
-        var exercises = await _dbContext.Exercises
-            .ToListAsync();
+        var rowsAffected = await _dbContext.Exercises.Where(e => e.Id == id).ExecuteDeleteAsync(cancellationToken);
 
-        return exercises.IsNotEmpty() ? exercises.Select(e => e.ToModel()).ToList() : [];
+        return rowsAffected == 0 ? ErrorCode.NothingToDelete : new Unit();
+    }
+
+    public async Task<Result<ExerciseInfo>> GetByNameAsync(string name, CancellationToken cancellationToken = default)
+    {
+        var item = await _dbContext.Exercises.ByName(name).FirstOrDefaultAsync(cancellationToken);
+
+        if (item is not null)
+        {
+            return item.ToModel();
+        }
+
+        _logger.LogWarning("The exercise with name \'{ExerciseName}\' was not found in the database", name);
+
+        return ErrorCode.NotFound;
+    }
+
+    public async Task<Result<IEnumerable<ExerciseInfo>>> GetAllAsync(CancellationToken cancellationToken = default)
+    {
+        var items = await _dbContext.Exercises.ToListAsync(cancellationToken);
+
+        return items.IsNotEmpty()
+            ? Result<IEnumerable<ExerciseInfo>>.Success(items.ToModels())
+            : ErrorCode.NotFound;
     }
 }
