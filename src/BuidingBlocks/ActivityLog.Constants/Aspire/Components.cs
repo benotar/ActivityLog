@@ -16,6 +16,8 @@ public static class Components
         public static readonly string Workout = $"{nameof(Workout)}{Suffix}";
         
         public static readonly string Identity = $"{nameof(Identity)}{Suffix}";
+
+        public static readonly string IdentitySchema = nameof(Identity).ToLowerInvariant();
         
         public const int Port = 5432;
     }

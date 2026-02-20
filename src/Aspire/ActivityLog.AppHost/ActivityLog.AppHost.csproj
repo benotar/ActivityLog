@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup Label="Services">
+    <ProjectReference Include="..\..\Services\IdentityService\ActivityLog.IdentityService\ActivityLog.IdentityService.csproj" />
     <ProjectReference Include="..\..\Services\WorkoutService\ActivityLog.Services.WorkoutService.API\ActivityLog.Services.WorkoutService.API.csproj" />
   </ItemGroup>
   

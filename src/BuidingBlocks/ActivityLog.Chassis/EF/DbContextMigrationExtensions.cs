@@ -11,8 +11,13 @@ public static class DbContextMigrationExtensions
     private const string ActivitySourceName = "DbMigrations";
     private static readonly ActivitySource ActivitySource = new ActivitySource(ActivitySourceName);
 
-
-    public static IServiceCollection AddMigration<TContext>(this IServiceCollection services,
+    public static IServiceCollection AddMigration<TContext>(this IServiceCollection services)
+        where TContext : IDbContext
+    {
+        return services.AddMigration<TContext>((_, _) => Task.CompletedTask);
+    }
+    
+    private static IServiceCollection AddMigration<TContext>(this IServiceCollection services,
         Func<TContext, IServiceProvider, Task> seeder)
         where TContext : IDbContext
     {

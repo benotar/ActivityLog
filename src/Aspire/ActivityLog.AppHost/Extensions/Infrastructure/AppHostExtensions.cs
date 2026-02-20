@@ -52,8 +52,7 @@ public static class AppHostExtensions
             .AddPostgres(Components.Postgres.Name, pgUser, pgPassword, port: Components.Postgres.Port)
             .WithPgWeb()
             .WithLifetime(ContainerLifetime.Session)
-            .WithDataVolume()
-            .WithIconName("HomeDatabase");
+            .WithDataVolume();
 
         pgUser.WithParentRelationship(postgres);
         pgPassword.WithParentRelationship(postgres);

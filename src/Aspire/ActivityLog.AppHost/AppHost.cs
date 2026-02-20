@@ -11,6 +11,7 @@ builder.AddDockerComposeEnvironment("env");
 // Postgres
 var postgres = builder.AddConfiguredPostgres();
 var workoutDb = postgres.AddDatabase(Components.Postgres.Workout);
+var identityDb = postgres.AddDatabase(Components.Postgres.Identity);
 
 // RabbitMQ
 var rmq = builder.AddConfiguredRabbitMq();
@@ -23,6 +24,14 @@ builder
     .WithReference(rmq)
     .WaitFor(workoutDb)
     .WaitFor(rmq)
+    .WithOpenApi()
+    .WithHealthCheck();
+
+builder
+    .AddProject<Projects.ActivityLog_IdentityService>(Services.Identity)
+    .WithExternalHttpEndpoints()
+    .WithReference(identityDb)
+    .WaitFor(identityDb)
     .WithOpenApi()
     .WithHealthCheck();
 

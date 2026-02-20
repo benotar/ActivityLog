@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace ActivityLog.Services.WorkoutService.Application;
 
-public static class Extensions
+public static class DependencyInjection
 {
     public static void AddApplicationLayer(this IHostApplicationBuilder builder)
     {
